@@ -30,7 +30,9 @@ class Bird {
   }
 
   void display() {
-    fill(0, 255, 0);
+    fill(255, 128, 191);
     circle(x, y, diameter);
+    imageMode(CENTER);
+    image(bird, x, y, diameter+10, diameter+10);
   }
 }
