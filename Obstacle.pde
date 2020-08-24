@@ -14,6 +14,9 @@ class Obstacle {
 
   float speedX;
 
+  boolean isUtil;
+  boolean canBeRemoved;
+
   Obstacle() {
 
     rect1Height = random(height/8, height*0.75);
@@ -26,7 +29,9 @@ class Obstacle {
 
     rect2Height = height - rect2Y;
 
-    speedX = -1;
+    speedX = -2;
+    isUtil = true;
+    canBeRemoved = false;
   }
 
   void display() {
@@ -38,5 +43,9 @@ class Obstacle {
   void toLeft() {
     rect1X += speedX;
     rect2X += speedX;
+
+    if (rect1X < 0 - rectWidth) {
+      canBeRemoved = true;
+    }
   }
 }

@@ -8,7 +8,7 @@ class Bird {
     x = width/2;
     y = height/2;
     diameter = 80;
-    speedY = 1;
+    speedY = 2;
   }
 
   void move() {

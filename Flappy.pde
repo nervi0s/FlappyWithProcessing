@@ -1,7 +1,7 @@
 Bird b;
 
 ArrayList<Obstacle> obstacles;
-ArrayList<CollisionSensors> sensors;
+//ArrayList<CollisionSensors> sensors;
 
 void setup() {
   size(700, 500);
@@ -11,8 +11,8 @@ void setup() {
 
   obstacles = new ArrayList<Obstacle>();
   obstacles.add(new Obstacle());
-  sensors = new ArrayList<CollisionSensors>();
-  sensors.add(new CollisionSensors(obstacles.get(0)));
+  // sensors = new ArrayList<CollisionSensors>();
+  //sensors.add(new CollisionSensors(obstacles.get(0)));
 }
 
 void draw() {
@@ -22,36 +22,35 @@ void draw() {
   b.move();
 
 
-
-  // c.display();
-  // c.moveWithObstacle();
-  //c.detectDistance(b);
-
   for (int i = obstacles.size() - 1; i >= 0; i--) {
     Obstacle o = obstacles.get(i);
 
     o.display();
     o.toLeft();
 
-    if (o.rect1X < 100) {
-      obstacles.remove(i);
-      sensors.remove(i);
+    if (o.rect1X < width/2 && o.isUtil) {
+      // sensors.remove(i);
+      o.isUtil = false;
       obstacles.add(new Obstacle());
-      sensors.add(new CollisionSensors( obstacles.get(i)));
+      //sensors.add(new CollisionSensors( obstacles.get(i)));
+    }
+
+    if (o.canBeRemoved) {
+      obstacles.remove(i);
     }
   }
 
-  for (int j = sensors.size() - 1; j >= 0; j--) {
-    CollisionSensors s = sensors.get(j);
+  /* for (int j = sensors.size() - 1; j >= 0; j--) {
+   CollisionSensors s = sensors.get(j);
+   
+   s.display();
+   s.moveWithObstacle();
+   s.detectDistance(b);
+   }*/
 
-    s.display();
-    s.moveWithObstacle();
-    s.detectDistance(b);
-  }
-
-  println(sensors.size()+" "+ obstacles.size());
+  println(obstacles.size());
 }
 
 void mousePressed() {
-  b.y = b.y - 25;
+  b.y = b.y - 35;
 }
