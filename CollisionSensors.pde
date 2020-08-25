@@ -5,6 +5,7 @@ class CollisionSensors {
   float diameter;
   float speedX;
   boolean isUtil;
+  boolean isCollision;
 
   Obstacle ob;
 
@@ -35,6 +36,7 @@ class CollisionSensors {
       sensors.add(new CollisionSensors (i, obstacle.rect2Y));
     }
     isUtil = true;
+    isCollision = false;
   }
 
   void display() {
@@ -52,10 +54,10 @@ class CollisionSensors {
 
   void detectDistance(Bird ball) {
     for (CollisionSensors s : sensors) {
-      stroke(255, 255, 255, 100);
+      //stroke(255, 255, 255, 100);
       //line(s.x, s.y, ball.x, ball.y);
       if (ball.diameter/2 + s.diameter/2 >= dist(ball.x, ball.y, s.x, s.y)) {
-        frameRate(0);
+        isCollision = true;
       }
     }
     if (ob.rect1X + ball.diameter/2 + ob.rectWidth +diameter < ball.x) {
