@@ -61,7 +61,7 @@ class Game {
         if (s.isCollision) {
           //frameRate(0);
           isAlive = false;
-          score.record = score.score;
+          score.record = score.score > score.record ? score.score : score.record ;
           score.score = 0;
         }
       }
