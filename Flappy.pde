@@ -2,7 +2,7 @@ PImage bird;
 PImage pipe;
 PImage bg;
 float bgX;
-
+boolean pause;
 ArrayList<Game> games;
 Score score = new Score();
 
@@ -21,7 +21,10 @@ void draw() {
   background(55);
 
   image(bg, bgX, 0, bg.width, height); // Background display
-  bgX -= 20; // background velocity
+  if ( games.size()>0 && games.get(0).start && !pause) { //Move bg if a game is active
+    bgX -= 20; // background velocity
+  }
+
 
   if (bgX <= -bg.width + width) {  // Infinite loop for background
     image(bg, bgX + bg.width, 0, bg.width, height);
@@ -36,16 +39,18 @@ void draw() {
     Game g = games.get(i);
     g.play(score);
     if (!g.isAlive) {
-      games.remove(i);
+      textAlign(CENTER);
+      fill(255);
+      text("GAME OVER", width/2, height/2);
+      text("TAP TO RESTART", width/2, height/2 + 15);
+      if (mousePressed)
+        pause = false;
+      if (!pause)
+        games.remove(i);
     }
   }
 
   if (games.size() == 0) {
-
-    textAlign(CENTER);
-    fill(255);
-    text("GAME OVER", width/2, height/2);
-    text("TAP TO RESTART", width/2, height/2 + 15);
 
     if (mousePressed) {
       games.add(new Game(true));

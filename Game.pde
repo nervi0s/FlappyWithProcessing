@@ -29,13 +29,15 @@ class Game {
 
 
       ball.display();
-      ball.move();
+      if (!pause)
+        ball.move();
 
       for (int i = obstacles.size() - 1; i >= 0; i--) {
         Obstacle o = obstacles.get(i);
 
         o.display();
-        o.toLeft();
+        if (!pause)
+          o.toLeft();
 
         if (o.rect1X < width/2 && o.isUtil) {
           o.isUtil = false;
@@ -51,8 +53,9 @@ class Game {
       for (int j = sensors.size() - 1; j >= 0; j--) {
         CollisionSensors s = sensors.get(j);
 
-        //s.display();
-        s.moveWithObstacle();
+        s.display();
+        if (!pause)
+          s.moveWithObstacle();
         s.detectDistance(ball);
         if (!s.isUtil) {
           score.score++;
@@ -60,6 +63,7 @@ class Game {
         }
         if (s.isCollision) {
           //frameRate(0);
+          pause = true;
           isAlive = false;
           score.record = score.score > score.record ? score.score : score.record ;
           score.score = 0;
