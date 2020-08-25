@@ -6,7 +6,7 @@ class Obstacle {
   float rect2X;
   float rect2Y;
 
-  float separation = 150;
+  float separation = 250;
 
   float rectWidth = 55;
   float rect1Height;
@@ -21,7 +21,7 @@ class Obstacle {
 
     rect1Height = random(height/8, height*0.75);
 
-    rect1X = width - rectWidth;
+    rect1X = width + rectWidth;
     rect1Y = 0;
 
     rect2X = rect1X;

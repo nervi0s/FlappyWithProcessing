@@ -55,7 +55,7 @@ class CollisionSensors {
       stroke(255, 255, 255, 100);
       //line(s.x, s.y, ball.x, ball.y);
       if (ball.diameter/2 + s.diameter/2 >= dist(ball.x, ball.y, s.x, s.y)) {
-        frameRate(0);
+        //frameRate(0);
       }
     }
     if (ob.rect1X + ball.diameter/2 + ob.rectWidth +diameter < ball.x) {

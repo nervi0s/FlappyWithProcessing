@@ -8,8 +8,8 @@ class Bird {
   Bird() {
     x = width/2;
     y = height/2;
-    diameter = 45;
-    gravity = 1;
+    diameter = 80;
+    gravity = 2;
     speedY = 0;
   }
 
