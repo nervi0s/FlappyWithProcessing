@@ -22,7 +22,7 @@ void draw() {
 
   image(bg, bgX, 0, bg.width, height); // Background display
   if ( games.size()>0 && games.get(0).start && !pause) { //Move bg if a game is active
-    bgX -= 20; // background velocity
+    bgX -= 3; // background velocity
   }
 
 

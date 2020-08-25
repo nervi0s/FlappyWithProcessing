@@ -53,7 +53,7 @@ class Game {
       for (int j = sensors.size() - 1; j >= 0; j--) {
         CollisionSensors s = sensors.get(j);
 
-        s.display();
+        //s.display();
         if (!pause)
           s.moveWithObstacle();
         s.detectDistance(ball);

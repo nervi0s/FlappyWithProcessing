@@ -29,7 +29,7 @@ class Obstacle {
 
     rect2Height = height - rect2Y;
 
-    speedX = -2;
+    speedX = -3;
     isUtil = true;
     canBeRemoved = false;
   }
