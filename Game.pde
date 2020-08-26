@@ -42,7 +42,7 @@ class Game {
         if (!pause) {
           o.toLeft();
         }
-        if (o.rect1X < width/2 && o.isUtil) {
+        if (o.rect1X < width * 0.75 && o.isUtil) {
           o.isUtil = false;
           obstacles.add(new Obstacle());
           sensors.add(new CollisionSensors( obstacles.get(i+1)));
@@ -73,7 +73,8 @@ class Game {
           score.score = 0;
         }
       }
-      println(obstacles.size() + " " + sensors.size());
+      //println(obstacles.size() + " " + sensors.size());
+      //println(frameRate);
     }
   }
 }

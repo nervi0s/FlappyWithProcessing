@@ -6,9 +6,9 @@ class Obstacle {
   float rect2X;
   float rect2Y;
 
-  float separation = 250;
+  float separation = 350;
 
-  float rectWidth = 55;
+  float rectWidth = 100;
   float rect1Height;
   float rect2Height;
 

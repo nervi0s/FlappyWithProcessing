@@ -69,7 +69,7 @@ void draw() {
       }
     }
   }
-  println(games.size());
+  //println(games.size());
 }
 
 void mousePressed() {
