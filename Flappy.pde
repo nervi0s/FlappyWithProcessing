@@ -1,4 +1,4 @@
-PImage bird; //<>//
+PImage bird;
 PImage pipe;
 PImage bg;
 float bgX;
