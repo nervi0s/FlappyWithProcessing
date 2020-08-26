@@ -1,4 +1,4 @@
-PImage bird;
+PImage bird; //<>//
 PImage pipe;
 PImage bg;
 float bgX;
@@ -37,7 +37,9 @@ void draw() {
 
   for (int i = games.size() - 1; i >= 0; i--) {
     Game g = games.get(i);
+
     g.play(score);
+
     if (!g.isAlive) {
       textAlign(CENTER);
       fill(255);
@@ -56,6 +58,7 @@ void draw() {
       games.add(new Game(true));
     }
   }
+  //println(games.size()+" "+games.get(0).obstacles.size() +" "+ games.get(0).sensors.size()); //Checking instances of sensors anda obstacles
 }
 
 void mousePressed() {

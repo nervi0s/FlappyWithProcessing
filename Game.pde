@@ -53,7 +53,7 @@ class Game {
       for (int j = sensors.size() - 1; j >= 0; j--) {
         CollisionSensors s = sensors.get(j);
 
-        s.display();
+        //s.display();
         if (!pause)
           s.moveWithObstacle();
         s.detectDistance(ball);
@@ -66,10 +66,11 @@ class Game {
           pause = true;
           isAlive = false;
           score.record = score.score > score.record ? score.score : score.record ;
-          score.score = 0;
+          if (mousePressed)
+            score.score = 0;
         }
       }
-      println(obstacles.size() + " " + sensors.size());
+      //println(obstacles.size() + " " + sensors.size());
     }
   }
 }
