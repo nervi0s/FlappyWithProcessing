@@ -1,7 +1,7 @@
 PImage bird;
 PImage pipe;
 PImage bg;
-float bgX;
+float bgX = 0;
 boolean pause;
 
 ArrayList<Game> games;
@@ -23,7 +23,7 @@ void draw() {
 
   image(bg, bgX, 0, bg.width, displayHeight); // Background display
   if ( games.size()>0 && games.get(0).start && !pause) { //Move bg if a game is active
-    bgX -= 3; // background velocity
+    bgX -= 20; // background velocity
   }
 
   if (bgX <= -bg.width + width) {  // Infinite loop for background
@@ -32,6 +32,13 @@ void draw() {
       bgX = 0;
     }
   }
+  /*// display image twice:
+   image(bg, bgX, 0, bg.width, displayHeight);
+   image(bg, bgX+bg.width, 0, bg.width, displayHeight);
+   // pos 
+   bgX-=20;
+   if (bgX<-bg.width) 
+   bgX=0;*/
 
   for (int i = games.size() - 1; i >= 0; i--) {
     Game g = games.get(i);

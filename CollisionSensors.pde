@@ -21,22 +21,22 @@ class CollisionSensors {
 
     sensors = new ArrayList<CollisionSensors>();
 
-    speedX = obstacle.speedX;
+    speedX = ob.speedX;
 
-    for (float i = obstacle.rect1Y; i < obstacle.rect1Height; i+=10) { // For rectangle1 left side 
-      sensors.add(new CollisionSensors (obstacle.rect1X+5, i));
+    for (float i = ob.rect1Y; i < ob.rect1Height; i+=10) { // For rectangle1 left side 
+      sensors.add(new CollisionSensors (ob.rect1X+5, i));
     }
 
-    for (float i = obstacle.rect1X + 10; i < obstacle.rect1X + obstacle.rectWidth; i += 10) { // For rectangle1 down side
-      sensors.add(new CollisionSensors (i, obstacle.rect1Y + obstacle.rect1Height));
+    for (float i = ob.rect1X + 10; i < ob.rect1X + ob.rectWidth; i += 10) { // For rectangle1 down side
+      sensors.add(new CollisionSensors (i, ob.rect1Y + ob.rect1Height));
     }
 
-    for (float i = obstacle.rect2Y; i < obstacle.rect2Y + obstacle.rect2Height; i+=10) { // For rectangle2 left side
-      sensors.add(new CollisionSensors (obstacle.rect2X + 5, i));
+    for (float i = ob.rect2Y; i < ob.rect2Y + ob.rect2Height; i+=10) { // For rectangle2 left side
+      sensors.add(new CollisionSensors (ob.rect2X + 5, i));
     }
 
-    for (float i = obstacle.rect2X + 10; i < obstacle.rect2X + obstacle.rectWidth; i += 10) { // For rectangle2 top side
-      sensors.add(new CollisionSensors (i, obstacle.rect2Y));
+    for (float i = ob.rect2X + 10; i < ob.rect2X + ob.rectWidth; i += 10) { // For rectangle2 top side
+      sensors.add(new CollisionSensors (i, ob.rect2Y));
     }
 
     isUtil = true;
@@ -61,7 +61,7 @@ class CollisionSensors {
       //stroke(255, 255, 255, 100);
       //line(s.x, s.y, ball.x, ball.y);
       if (ball.diameter/2 + s.diameter/2 >= dist(ball.x, ball.y, s.x, s.y)) {
-        isCollision = true;
+        //isCollision = true;
       }
     }
     if (ob.rect1X + ball.diameter/2 + ob.rectWidth +diameter < ball.x) {

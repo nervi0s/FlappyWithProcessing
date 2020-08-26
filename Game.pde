@@ -27,8 +27,8 @@ class Game {
       text("TAP TO START", width/2, height/2+50);
     } else {
 
-
       ball.display();
+
       if (!pause) {
         ball.move();
       }
@@ -44,7 +44,7 @@ class Game {
         if (o.rect1X < width * 0.75 && o.isUtil) {
           o.isUtil = false;
           obstacles.add(new Obstacle());
-          sensors.add(new CollisionSensors( obstacles.get(i+1)));
+          sensors.add(new CollisionSensors(obstacles.get(i+1)));
         }
         if (o.canBeRemoved) {
           obstacles.remove(i);
@@ -54,7 +54,7 @@ class Game {
       for (int j = sensors.size() - 1; j >= 0; j--) {
         CollisionSensors s = sensors.get(j);
 
-        //s.display();
+        s.display();
 
         if (!pause) {
           s.moveWithObstacle();

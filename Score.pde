@@ -8,5 +8,6 @@ class Score {
     fill(0);
     text("Score: " + score, 35, 50);
     text("Record: " + record, 35, 75);
+    text("frames: " + frameRate, 35, 100);
   }
 }
