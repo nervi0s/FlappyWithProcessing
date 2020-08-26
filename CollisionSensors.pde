@@ -18,8 +18,11 @@ class CollisionSensors {
 
   CollisionSensors(Obstacle obstacle) {
     ob = obstacle;
+
     sensors = new ArrayList<CollisionSensors>();
+
     speedX = obstacle.speedX;
+
     for (float i = obstacle.rect1Y; i < obstacle.rect1Height; i+=10) { // For rectangle1 left side 
       sensors.add(new CollisionSensors (obstacle.rect1X+5, i));
     }
@@ -28,12 +31,14 @@ class CollisionSensors {
       sensors.add(new CollisionSensors (i, obstacle.rect1Y + obstacle.rect1Height));
     }
 
-    for (float i = obstacle.rect2Y; i < height; i+=10) { // For rectangle2 left side
+    for (float i = obstacle.rect2Y; i < obstacle.rect2Y + obstacle.rect2Height; i+=10) { // For rectangle2 left side
       sensors.add(new CollisionSensors (obstacle.rect2X + 5, i));
     }
+
     for (float i = obstacle.rect2X + 10; i < obstacle.rect2X + obstacle.rectWidth; i += 10) { // For rectangle2 top side
       sensors.add(new CollisionSensors (i, obstacle.rect2Y));
     }
+
     isUtil = true;
     isCollision = false;
   }

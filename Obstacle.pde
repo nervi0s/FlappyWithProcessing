@@ -27,17 +27,17 @@ class Obstacle {
     rect2X = rect1X;
     rect2Y = rect1Height + separation;
 
-    rect2Height = height - rect2Y;
+    rect2Height = height - (rect1Height + separation);
 
-    speedX = -2;
+    speedX = -3;
     isUtil = true;
     canBeRemoved = false;
   }
 
   void display() {
-    fill(255);
-    rect(rect1X, rect1Y, rectWidth, rect1Height);
-    rect(rect2X, rect2Y, rectWidth, rect2Height);
+    //fill(255);
+    //rect(rect1X, rect1Y, rectWidth, rect1Height);
+    //rect(rect2X, rect2Y, rectWidth, rect2Height);
     imageMode(CORNER);
     image(pipe, rect1X, rect1Y, rectWidth, rect1Height+5);
     image(pipe, rect2X, rect2Y-4, rectWidth, rect2Height+5);

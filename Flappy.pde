@@ -23,7 +23,7 @@ void draw() {
 
   image(bg, bgX, 0, bg.width, displayHeight); // Background display
   if ( games.size()>0 && games.get(0).start && !pause) { //Move bg if a game is active
-    bgX -= 2; // background velocity
+    bgX -= 3; // background velocity
   }
 
   if (bgX <= -bg.width + width) {  // Infinite loop for background
@@ -33,11 +33,11 @@ void draw() {
     }
   }
 
-  score.display();
-
   for (int i = games.size() - 1; i >= 0; i--) {
     Game g = games.get(i);
+
     g.play(score);
+
     if (!g.isAlive) {
       textAlign(CENTER);
       fill(255);
@@ -69,7 +69,9 @@ void draw() {
       }
     }
   }
-  //println(games.size());
+
+  score.display();
+  //println(games.size() + " " + games.get(0).obstacles.size() + " " + games.get(0).sensors.size()); //Checking instances of sensors anda obstacles
 }
 
 void mousePressed() {

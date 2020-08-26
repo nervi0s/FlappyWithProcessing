@@ -22,7 +22,6 @@ class Game {
   void play(Score score) {
 
     if (!start) {
-
       textAlign(CENTER);
       textSize(42);
       text("TAP TO START", width/2, height/2+50);
@@ -69,11 +68,11 @@ class Game {
           //frameRate(0);
           pause = true;
           isAlive = false;
-          score.record = score.score > score.record ? score.score : score.record ;
-          score.score = 0;
+          score.record = score.score > score.record ? score.score : score.record;
+          if (mousePressed)
+            score.score = 0;
         }
       }
-      //println(obstacles.size() + " " + sensors.size());
       //println(frameRate);
     }
   }
