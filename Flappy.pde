@@ -58,7 +58,7 @@ void draw() {
       games.add(new Game(true));
     }
   }
-  //println(games.size()+" "+games.get(0).obstacles.size() +" "+ games.get(0).sensors.size()); //Checking instances of sensors anda obstacles
+  //println(games.size() + " " + games.get(0).obstacles.size() + " " + games.get(0).sensors.size()); //Checking instances of sensors anda obstacles
 }
 
 void mousePressed() {
