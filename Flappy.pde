@@ -1,17 +1,12 @@
-PImage bird;
-PImage pipe;
 PImage bg;
 float bgX = 0;
-boolean pause;
+
 
 ArrayList<Game> games;
 Score score = new Score();
 
 void setup() {
   size(displayWidth, displayHeight);
-
-  bird = loadImage("bird.png");
-  pipe = loadImage("pipe_body.png");
   bg = loadImage("background.png");
 
   games = new ArrayList<Game>();
@@ -19,14 +14,16 @@ void setup() {
 }
 
 void draw() {
-  background(55);
+  background(0);
 
+  imageMode(CORNER);
   image(bg, bgX, 0, bg.width, displayHeight); // Background display
-  if ( games.size()>0 && games.get(0).start && !pause) { //Move bg if a game is active
+  if ( games.size()>0 && games.get(0).start && !games.get(0).pause) { //Move bg if a game is active
     bgX -= 20; // background velocity
   }
 
   if (bgX <= -bg.width + width) {  // Infinite loop for background
+    imageMode(CORNER);
     image(bg, bgX + bg.width, 0, bg.width, displayHeight);
     if (bgX <= -bg.width) {
       bgX = 0;
@@ -50,17 +47,17 @@ void draw() {
       fill(255);
       textSize(40);
       fill(0);
-      text("GAME OVER", width/2, height/2);
-      text("TAP TO RESTART", width/2, height/2 + 40);
+      text("\ud83d\udc7eGAME OVER\ud83d\udc7e", width/2, height/2);
+      text("TAP HERE TO RESTART", width/2, height/2 + 40);
       if (mousePressed) {
         if (mouseX > width/2 - 200 && mouseX < width/2 + 200) {
           if (mouseY > height/2 -100 && mouseY < height/2 +100) {
-            pause = false;
+            g.pause = false;
           }
         }
       }
 
-      if (!pause) {
+      if (!g.pause) {
         games.remove(i);
       }
     }
@@ -78,7 +75,12 @@ void draw() {
   }
 
   score.display();
-  //println(games.size() + " " + games.get(0).obstacles.size() + " " + games.get(0).sensors.size()); //Checking instances of sensors anda obstacles
+
+  if (games.size() > 0) {
+    println(games.size() + " " + games.get(0).obstacles.size() + " " + games.get(0).obstacles.get(0).sensors.size() + " " + frameRate); //Checking instances of sensors anda obstacles
+  } else {
+    println(games.size() + " " + frameRate);
+  }
 }
 
 void mousePressed() {

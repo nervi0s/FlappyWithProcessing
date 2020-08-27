@@ -1,33 +1,32 @@
 class Game {
   boolean start = false;
+  boolean pause = false;
   boolean isAlive;
-  Bird ball = new Bird();
 
+  Bird ball = new Bird();
   ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
-  ArrayList<CollisionSensors> sensors = new ArrayList<CollisionSensors>();
 
   Game() {
     isAlive = true;
     obstacles.add(new Obstacle());
-    sensors.add(new CollisionSensors(obstacles.get(0)));
   }
 
   Game(boolean retry) {
     start = retry;
     isAlive = true;
     obstacles.add(new Obstacle());
-    sensors.add(new CollisionSensors(obstacles.get(0)));
   }
 
   void play(Score score) {
 
+    ball.display();
+
     if (!start) {
       textAlign(CENTER);
       textSize(42);
-      text("TAP TO START", width/2, height/2+50);
+      fill(0);
+      text("TAP TO START", width/2, height/2 + ball.diameter);
     } else {
-
-      ball.display();
 
       if (!pause) {
         ball.move();
@@ -40,40 +39,45 @@ class Game {
 
         if (!pause) {
           o.toLeft();
+
+          if (o.rectX < width * 0.60 && o.isUtil) {
+            o.isUtil = false;
+            obstacles.add(new Obstacle());
+          }
+          if (o.canBeRemoved) {
+            obstacles.remove(i);
+          }
+
+          if (o.checkBallPassed(ball) && !o.ballPassed) {
+            score.score++;
+            o.ballPassed = true;
+          }
         }
-        if (o.rect1X < width * 0.75 && o.isUtil) {
-          o.isUtil = false;
-          obstacles.add(new Obstacle());
-          sensors.add(new CollisionSensors(obstacles.get(i+1)));
-        }
-        if (o.canBeRemoved) {
-          obstacles.remove(i);
+
+
+        for (int j = o.sensors.size() - 1; j >= 0; j--) {
+          CollisionSensors s = o.sensors.get(j);
+          s.display();
+
+          if (!pause) {
+            s.moveWithObstacle();
+          }
+
+          s.detectDistance(ball);
+
+          if (!s.isUtil) {
+            o.sensors.remove(j);
+          }
+
+          if (s.isCollision) {
+            pause = true;
+            isAlive = false;
+            score.record = score.score > score.record ? score.score : score.record ;
+            if (mousePressed)
+              score.score = 0;
+          }
         }
       }
-
-      for (int j = sensors.size() - 1; j >= 0; j--) {
-        CollisionSensors s = sensors.get(j);
-
-        s.display();
-
-        if (!pause) {
-          s.moveWithObstacle();
-        }
-        s.detectDistance(ball);
-        if (!s.isUtil) {
-          score.score++;
-          sensors.remove(j);
-        }
-        if (s.isCollision) {
-          //frameRate(0);
-          pause = true;
-          isAlive = false;
-          score.record = score.score > score.record ? score.score : score.record;
-          if (mousePressed)
-            score.score = 0;
-        }
-      }
-      //println(frameRate);
     }
   }
 }

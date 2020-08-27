@@ -6,65 +6,36 @@ class CollisionSensors {
   float speedX;
   boolean isUtil;
   boolean isCollision;
-  Obstacle ob;
 
-  ArrayList<CollisionSensors> sensors;
-
-  CollisionSensors(float tempX, float tempY) {
+  CollisionSensors(float tempX, float tempY, float speed) {
     x = tempX;
     y = tempY;
     diameter = 10;
-  }
-
-  CollisionSensors(Obstacle obstacle) {
-    ob = obstacle;
-
-    sensors = new ArrayList<CollisionSensors>();
-
-    speedX = ob.speedX;
-
-    for (float i = ob.rect1Y; i < ob.rect1Height; i+=10) { // For rectangle1 left side 
-      sensors.add(new CollisionSensors (ob.rect1X+5, i));
-    }
-
-    for (float i = ob.rect1X + 10; i < ob.rect1X + ob.rectWidth; i += 10) { // For rectangle1 down side
-      sensors.add(new CollisionSensors (i, ob.rect1Y + ob.rect1Height));
-    }
-
-    for (float i = ob.rect2Y; i < ob.rect2Y + ob.rect2Height; i+=10) { // For rectangle2 left side
-      sensors.add(new CollisionSensors (ob.rect2X + 5, i));
-    }
-
-    for (float i = ob.rect2X + 10; i < ob.rect2X + ob.rectWidth; i += 10) { // For rectangle2 top side
-      sensors.add(new CollisionSensors (i, ob.rect2Y));
-    }
-
+    speedX = speed;
     isUtil = true;
     isCollision = false;
   }
 
   void display() {
-    for (CollisionSensors s : sensors) {
-      fill(255, 0, 0, 50);
-      circle(s.x, s.y, s.diameter);
-    }
+    stroke(0);
+    fill(255, 0, 0, 65);
+    circle(x, y, diameter);
   }
 
   void moveWithObstacle() {
-    for (CollisionSensors o : sensors) {
-      o.x += speedX;
-    }
+    x += speedX;
   }
 
   void detectDistance(Bird ball) {
-    for (CollisionSensors s : sensors) {
-      //stroke(255, 255, 255, 100);
-      //line(s.x, s.y, ball.x, ball.y);
-      if (ball.diameter/2 + s.diameter/2 >= dist(ball.x, ball.y, s.x, s.y)) {
-        //isCollision = true;
-      }
+    //stroke(0, 0, 0, 100);
+    //line(x, y, ball.x, ball.y); // Line for visualize the distance
+    if (ball.diameter/2 + diameter/2 >= dist(ball.x, ball.y, x, y)) {
+      stroke(255, 0, 0);
+      line(x, y, ball.x, ball.y); // Turn to color red if collision is detected
+      //frameRate(0); // For debugging purposes
+      isCollision = true;
     }
-    if (ob.rect1X + ball.diameter/2 + ob.rectWidth +diameter < ball.x) {
+    if (x + diameter/2 < ball.x - ball.diameter/2) {
       isUtil = false;
     }
   }
