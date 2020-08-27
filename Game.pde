@@ -4,19 +4,17 @@ class Game {
   Bird ball = new Bird();
 
   ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
-  ArrayList<CollisionSensors> sensors = new ArrayList<CollisionSensors>();
+
 
   Game() {
     isAlive = true;
     obstacles.add(new Obstacle());
-    sensors.add(new CollisionSensors(obstacles.get(0)));
   }
 
   Game(boolean retry) {
     start = retry;
     isAlive = true;
     obstacles.add(new Obstacle());
-    sensors.add(new CollisionSensors(obstacles.get(0)));
   }
 
   void play(Score score) {
@@ -42,35 +40,35 @@ class Game {
         if (o.rect1X < width/2 && o.isUtil) {
           o.isUtil = false;
           obstacles.add(new Obstacle());
-          sensors.add(new CollisionSensors( obstacles.get(i+1)));
         }
 
         if (o.canBeRemoved) {
           obstacles.remove(i);
         }
+
+        for (int j = o.sensors.size() - 1; j >= 0; j--) {
+          CollisionSensors s = o.sensors.get(j);
+          s.display();
+          if (!pause)
+            s.moveWithObstacle();
+          s.detectDistance(ball);
+          if (!s.isUtil) {
+            score.score++;
+            o.sensors.remove(j);
+          }
+          if (s.isCollision) {
+            //frameRate(0);
+            pause = true;
+            isAlive = false;
+            score.record = score.score > score.record ? score.score : score.record ;
+            if (mousePressed)
+              score.score = 0;
+          }
+        }
       }
 
-      for (int j = sensors.size() - 1; j >= 0; j--) {
-        CollisionSensors s = sensors.get(j);
 
-        //s.display();
-        if (!pause)
-          s.moveWithObstacle();
-        s.detectDistance(ball);
-        if (!s.isUtil) {
-          score.score++;
-          sensors.remove(j);
-        }
-        if (s.isCollision) {
-          //frameRate(0);
-          pause = true;
-          isAlive = false;
-          score.record = score.score > score.record ? score.score : score.record ;
-          if (mousePressed)
-            score.score = 0;
-        }
-      }
-      //println(obstacles.size() + " " + sensors.size());
+      println(obstacles.size());
     }
   }
 }
