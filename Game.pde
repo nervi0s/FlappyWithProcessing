@@ -74,7 +74,7 @@ class Game {
             isAlive = false;
             score.record = score.score > score.record ? score.score : score.record ;
             if (mousePressed && mouseX > width/2 - 200 && mouseX < width/2 + 200) {
-              if (mouseY > height/2 -100 && mouseY < height/2 +100) {
+              if (mouseY > height/2 - 100 && mouseY < height/2 + 100) {
                 score.score = 0;
               }
             }

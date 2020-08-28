@@ -47,6 +47,7 @@ class Obstacle {
     for (float i = rect2Y; i < rect2Y + rect2Height; i += 10) { // For rectangle2 left side
       sensors.add(new CollisionSensors (rectX + 5, i + 5, speedX));
     }
+
     for (float i = rectX + 10; i < rectX + rectWidth; i += 10) { // For rectangle2 top side
       sensors.add(new CollisionSensors (i, rect2Y + 5, speedX));
     }

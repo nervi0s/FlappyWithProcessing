@@ -42,7 +42,7 @@ void draw() {
       text("TAP HERE TO RESTART", width/2, height/2 + 45);
       if (mousePressed) {
         if (mouseX > width/2 - 200 && mouseX < width/2 + 200) {
-          if (mouseY > height/2 -100 && mouseY < height/2 +100) {
+          if (mouseY > height/2 - 100 && mouseY < height/2 + 100) {
             g.pause = false;
           }
         }
@@ -58,7 +58,7 @@ void draw() {
 
     if (mousePressed) {
       if (mouseX > width/2 - 200 && mouseX < width/2 + 200) {
-        if (mouseY > height/2 -100 && mouseY < height/2 +100) {
+        if (mouseY > height/2 - 100 && mouseY < height/2 + 100) {
           games.add(new Game(true));
         }
       }
@@ -68,7 +68,7 @@ void draw() {
   score.display();
 
   if (games.size() > 0) {
-    println(games.size() + " " + games.get(0).obstacles.size() + " " + games.get(0).obstacles.get(0).sensors.size() + " " + frameRate); //Checking instances of sensors anda obstacles
+    println(games.size() + " " + games.get(0).obstacles.size() + " " + games.get(0).obstacles.get(0).sensors.size() + " " + frameRate); //Checking instances of sensors and obstacles
   } else {
     println(games.size() + " " + frameRate);
   }
