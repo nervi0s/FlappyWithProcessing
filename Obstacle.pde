@@ -8,13 +8,13 @@ class Obstacle {
   float rect1Height;
   float rect2Height;
 
-  float separation = 350;
+  float separation = 280;
 
   float speedX;
 
-  boolean isUtil;
+  boolean isUtil; // Used to avoid massive Obstacle objects creating (used in Game class)
   boolean canBeRemoved;
-  boolean ballPassed;
+  boolean ballPassed; // Used together with checkBallPassed() method to increase score (used in Game class)
 
   ArrayList<CollisionSensors> sensors;
 
@@ -28,7 +28,7 @@ class Obstacle {
 
     rect2Y = rect1Height + separation;
 
-    speedX = -3;
+    speedX = -4;
 
     isUtil = true;
     canBeRemoved = false;
@@ -63,7 +63,7 @@ class Obstacle {
   void toLeft() {
     rectX += speedX;
 
-    if (rectX < 0 + rectWidth) {
+    if (rectX < 0 - rectWidth) {
       canBeRemoved = true;
     }
   }

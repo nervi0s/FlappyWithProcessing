@@ -8,6 +8,6 @@ class Score {
     fill(0);
     text("Score: " + score, 35, 50);
     text("Record: " + record, 35, 75);
-    text("Frames: " + frameRate, 35, 100);
+    //text("Frames: " + frameRate, 35, 100); // Display frame rate in screen
   }
 }

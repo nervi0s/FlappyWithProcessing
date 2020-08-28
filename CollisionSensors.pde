@@ -4,7 +4,7 @@ class CollisionSensors {
   float y;
   float diameter;
   float speedX;
-  boolean isUtil;
+  boolean isUtil; // Used to remove instanced objects if they aren't used (if the ball passes the object)
   boolean isCollision;
 
   CollisionSensors(float tempX, float tempY, float speed) {
@@ -30,8 +30,8 @@ class CollisionSensors {
     //stroke(0, 0, 0, 100);
     //line(x, y, ball.x, ball.y); // Line for visualize the distance
     if (ball.diameter/2 + diameter/2 >= dist(ball.x, ball.y, x, y)) {
-      stroke(255, 0, 0);
-      line(x, y, ball.x, ball.y); // Turn to color red if collision is detected
+      //stroke(255, 0, 0);
+      //line(x, y, ball.x, ball.y); // Turn to color red if collision is detected
       //frameRate(0); // For debugging purposes
       isCollision = true;
     }

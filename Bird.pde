@@ -21,11 +21,11 @@ class Bird {
     y = y + speedY;
     speedY *= 0.95;
 
-    if (y >= height - diameter/2) {
+    if (y >= height - diameter/2) { // Check down screen
       y = height - diameter/2;
       speedY = 0;
     }
-    if (y < 0 + diameter/2) {
+    if (y < 0 + diameter/2) {  // Check top screen
       y = 0 + diameter/2;
       speedY = 0;
     }
