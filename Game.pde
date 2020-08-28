@@ -73,8 +73,8 @@ class Game {
             pause = true;
             isAlive = false;
             score.record = score.score > score.record ? score.score : score.record;
-            if (mousePressed && mouseX > width/2 - 200 && mouseX < width/2 + 200) {
-              if (mouseY > height/2 -100 && mouseY < height/2 +100) {
+            if (mousePressed && mouseX > width/2 - 100 && mouseX < width/2 + 100) {
+              if (mouseY > height/2 - 50 && mouseY < height/2 + 50) {
                 score.score = 0;
               }
             }
