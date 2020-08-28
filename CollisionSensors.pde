@@ -4,42 +4,38 @@ class CollisionSensors {
   float y;
   float diameter;
   float speedX;
-  boolean isUtil;
+  boolean isUtil; // Used to remove instanced objects if they aren't used (if the ball passes the object)
   boolean isCollision;
 
-  Obstacle ob;
-
-
-  CollisionSensors(float tempX, float tempY) {
+  CollisionSensors(float tempX, float tempY, float speed) {
     x = tempX;
     y = tempY;
     diameter = 10;
+    speedX = speed;
     isUtil = true;
     isCollision = false;
-    speedX = -3;
   }
 
-
   void display() {
-
-    fill(255, 0, 0, 50);
+    stroke(0);
+    fill(255, 0, 0, 65);
     circle(x, y, diameter);
   }
 
   void moveWithObstacle() {
-
     x += speedX;
   }
 
   void detectDistance(Bird ball) {
-
-    //stroke(255, 255, 255, 100);
-    //line(s.x, s.y, ball.x, ball.y);
+    //stroke(0, 0, 0, 100);
+    //line(x, y, ball.x, ball.y); // Line for visualize the distance
     if (ball.diameter/2 + diameter/2 >= dist(ball.x, ball.y, x, y)) {
-      //isCollision = true;
+      //stroke(255, 0, 0);
+      //line(x, y, ball.x, ball.y); // Turn to color red if collision is detected
+      //frameRate(0); // For debugging purposes
+      isCollision = true;
     }
-
-    if (x + ball.diameter/2 + 55 +diameter < ball.x) { //55 rectWidth [] ToDo
+    if (x + diameter/2 < ball.x - ball.diameter/2) {
       isUtil = false;
     }
   }
