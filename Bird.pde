@@ -49,7 +49,7 @@ class Bird {
   }
 
   public void display() {
-    fill(255, 128, 191);
+    fill(228, 162, 183);
     circle(x, y, diameter);
     imageMode(CENTER);
     image(bird, (int)x, (int)y, diameter+10, diameter+10);

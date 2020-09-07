@@ -36,10 +36,10 @@ class CollisionSensor {
 
   public void detectDistance(Bird ball) {
     //stroke(0, 0, 0, 100);
-    //line(x, y, ball.x, ball.y); // Line for visualize the distance
+    //line(x, y, ball.GetXPosition(), ball.GetYPosition()); // Line for visualize the distance
     if (ball.GetDiameter()/2 + diameter/2 >= dist(ball.GetXPosition(), ball.GetYPosition(), x, y)) {
       //stroke(255, 0, 0);
-      //line(x, y, ball.x, ball.y); // Turn to color red if collision is detected
+      //line(x, y, ball.GetXPosition(), ball.GetYPosition()); // Turn to color red if collision is detected
       //frameRate(0); // For debugging purposes
       isCollision = true;
     }

@@ -1,4 +1,4 @@
-PImage bg; //<>// //<>//
+PImage bg; //<>//
 float bgX = 0;// background velocity
 
 ArrayList<Game> games;

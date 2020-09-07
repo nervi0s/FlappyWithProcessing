@@ -33,13 +33,11 @@ class Game {
 
   public void play(Score score) {
 
-    ball.display();
-
     if (!start) {
       textAlign(CENTER);
       textSize(14);
       fill(255);
-      text("TAP TO START", width/2, height/2 + ball.diameter);
+      text("TAP TO START", width/2, height/2 + ball.GetDiameter());
     } else {
 
       ball.move();
@@ -48,7 +46,6 @@ class Game {
         Obstacle o = obstacles.get(i);
 
         o.display();
-
         o.toLeft();
 
         if (o.getXPosition() < width * 0.60 && o.getIsUtil()) {
@@ -63,13 +60,11 @@ class Game {
           o.setBallPassedStatus(true);
         }
 
-
         for (int j = o.sensors.size() - 1; j >= 0; j--) {
           CollisionSensor s = o.sensors.get(j);
-          s.display();
 
+          //s.display();
           s.moveWithObstacle();
-
           s.detectDistance(ball);
 
           if (!s.getIsUtil()) {
@@ -84,5 +79,6 @@ class Game {
         }
       }
     }
+    ball.display();
   }
 }
