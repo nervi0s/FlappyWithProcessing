@@ -33,8 +33,6 @@ class Game {
 
   void play(Score score) {
 
-    ball.display();
-
     if (!start) {
       textAlign(CENTER);
       textSize(42);
@@ -57,7 +55,6 @@ class Game {
         if (o.getCanBeRemoved()) {
           obstacles.remove(i);
         }
-
         if (o.checkBallPassed(ball) && !o.getBallPassedStatus()) {
           score.incrementScoreBy(1);
           o.setBallPassedStatus(true);
@@ -82,5 +79,6 @@ class Game {
         }
       }
     }
+    ball.display();
   }
 }
