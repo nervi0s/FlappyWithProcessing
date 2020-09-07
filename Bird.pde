@@ -1,13 +1,13 @@
 class Bird {
-  PImage bird;
 
-  float x;
-  float y;
-  float diameter;
-  float gravity;
-  float speedY;
+  private PImage bird;
+  private float x;
+  private float y;
+  private float diameter;
+  private float gravity;
+  private float speedY;
 
-  Bird() {
+  public Bird() {
     bird = loadImage("./img/bird.png");
     x = width/2;
     y = height/2;
@@ -16,23 +16,39 @@ class Bird {
     speedY = 0;
   }
 
-  void move() {
-    speedY = speedY + gravity;
+  public float GetXPosition() {
+    return this.x;
+  }
+
+  public float GetYPosition() {
+    return this.y;
+  }
+
+  public float GetDiameter() {
+    return this.diameter;
+  }
+
+  public void setSpeedYOnClic() { // Move bird to top by clic
+    speedY += - gravity * 18;
+  }
+
+  public void move() { // Move always to bottom edge
+    speedY = speedY + this.gravity;
     y = y + speedY;
     speedY *= 0.95;
 
-    if (y >= height - diameter/2) { // Check down screen
+    if (y >= height - diameter/2) { // Check screen bottom edge
       y = height - diameter/2;
       speedY = 0;
     }
-    if (y < 0 + diameter/2) { // Check top screen
+    if (y < 0 + diameter/2) { // Check screen top edgde
       y = 0 + diameter/2;
       speedY = 0;
     }
     //println(speedY + " " + gravity);
   }
 
-  void display() {
+  public void display() {
     fill(255, 128, 191);
     circle(x, y, diameter);
     imageMode(CENTER);

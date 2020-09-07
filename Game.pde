@@ -1,23 +1,37 @@
 class Game {
-  boolean start = false;
-  boolean pause = false;
-  boolean isAlive;
 
-  Bird ball = new Bird();
-  ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+  private boolean start;
+  private boolean isAlive;
+  private Bird ball = new Bird();
+  private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
-  Game() {
+  public Game(boolean startStatus) {
+    start = startStatus;
     isAlive = true;
     obstacles.add(new Obstacle());
   }
 
-  Game(boolean retry) {
-    start = retry;
-    isAlive = true;
-    obstacles.add(new Obstacle());
+  public boolean getStartStatus() {
+    return this.start;
   }
 
-  void play(Score score) {
+  public boolean isAlive() {
+    return this.isAlive;
+  }
+
+  public void setStartStatus(boolean status) {
+    this.start = status;
+  }
+
+  public void pause() { // Pause the main loop draw() 
+    noLoop();
+  }
+
+  public void resume() { // Resume the main loop draw() 
+    loop();
+  }
+
+  public void play(Score score) {
 
     ball.display();
 
@@ -28,56 +42,44 @@ class Game {
       text("TAP TO START", width/2, height/2 + ball.diameter);
     } else {
 
-      if (!pause) {
-        ball.move();
-      }
+      ball.move();
 
       for (int i = obstacles.size() - 1; i >= 0; i--) {
         Obstacle o = obstacles.get(i);
 
         o.display();
 
-        if (!pause) {
-          o.toLeft();
+        o.toLeft();
 
-          if (o.rectX < width * 0.60 && o.isUtil) {
-            o.isUtil = false;
-            obstacles.add(new Obstacle());
-          }
-          if (o.canBeRemoved) {
-            obstacles.remove(i);
-          }
-
-          if (o.checkBallPassed(ball) && !o.ballPassed) {
-            score.score++;
-            o.ballPassed = true;
-          }
+        if (o.getXPosition() < width * 0.60 && o.getIsUtil()) {
+          o.setUtil(false);
+          obstacles.add(new Obstacle());
+        }
+        if (o.getCanBeRemoved()) {
+          obstacles.remove(i);
+        }
+        if (o.checkBallPassed(ball) && !o.getBallPassedStatus()) {
+          score.incrementScoreBy(1);
+          o.setBallPassedStatus(true);
         }
 
 
         for (int j = o.sensors.size() - 1; j >= 0; j--) {
-          CollisionSensors s = o.sensors.get(j);
+          CollisionSensor s = o.sensors.get(j);
           s.display();
 
-          if (!pause) {
-            s.moveWithObstacle();
-          }
+          s.moveWithObstacle();
 
           s.detectDistance(ball);
 
-          if (!s.isUtil) {
+          if (!s.getIsUtil()) {
             o.sensors.remove(j);
           }
 
-          if (s.isCollision) {
-            pause = true;
+          if (s.getIsCollision()) {
+            score.setRecord(score.getScore() > score.getRecord() ? score.getScore() : score.getRecord());
             isAlive = false;
-            score.record = score.score > score.record ? score.score : score.record;
-            if (mousePressed && mouseX > width/2 - 100 && mouseX < width/2 + 100) {
-              if (mouseY > height/2 - 50 && mouseY < height/2 + 50) {
-                score.score = 0;
-              }
-            }
+            pause();
           }
         }
       }

@@ -1,5 +1,5 @@
-PImage bg;
-float bgX = 0;
+PImage bg; //<>// //<>//
+float bgX = 0;// background velocity
 
 ArrayList<Game> games;
 Score score = new Score();
@@ -9,19 +9,19 @@ void setup() {
   bg = loadImage("./img/background.png");
 
   games = new ArrayList<Game>();
-  games.add(new Game());
+  games.add(new Game(false));
 }
 
 void draw() {
   background(55);
 
   imageMode(CORNER);
-  image(bg, bgX, 0, bg.width, height); // Background display
-  if ( games.size()>0 && games.get(0).start && !games.get(0).pause) { //Move bg if a game is active
-    bgX -= 3; // background velocity
+  image(bg, bgX, 0, bg.width, height); // Background image display
+  if ( games.size() > 0 && games.get(0).getStartStatus()) { //Move background image if a game is active
+    bgX -= 3;
   }
 
-  if (bgX <= -bg.width + width) {  // Infinite loop for background
+  if (bgX <= -bg.width + width) {  // Infinite loop for background image
     imageMode(CORNER);
     image(bg, bgX + bg.width, 0, bg.width, height);
     if (bgX <= -bg.width) {
@@ -30,38 +30,16 @@ void draw() {
   }
 
   for (int i = games.size() - 1; i >= 0; i--) {
-    Game g = games.get(i);
+    Game game = games.get(i);
 
-    g.play(score);
+    game.play(score);
 
-    if (!g.isAlive) {
+    if (!game.isAlive()) {
       textAlign(CENTER);
       textSize(15);
       fill(255);
       text("GAME OVER", width/2, height/2);
-      text("TAP TO RESTART", width/2, height/2 + 20);
-      if (mousePressed) {
-        if (mouseX > width/2 - 100 && mouseX < width/2 + 100) {
-          if (mouseY > height/2 - 50 && mouseY < height/2 + 50) {
-            g.pause = false;
-          }
-        }
-      }
-
-      if (!g.pause) {
-        games.remove(i);
-      }
-    }
-  }
-
-  if (games.size() == 0) {
-
-    if (mousePressed) {
-      if (mouseX > width/2 - 100 && mouseX < width/2 + 100) {
-        if (mouseY > height/2 - 50 && mouseY < height/2 + 50) {
-          games.add(new Game(true));
-        }
-      }
+      text("TAP HERE TO RESTART", width/2, height/2 + 20);
     }
   }
 
@@ -76,11 +54,23 @@ void draw() {
 
 void mousePressed() {
   for (int i = games.size() - 1; i >= 0; i--) {
-    Game g = games.get(i);
-    g.ball.speedY += - g.ball.gravity * 18;
+    Game game = games.get(i);
 
-    if (!g.start) {
-      g.start = true;
+    game.ball.setSpeedYOnClic(); 
+
+    if (!game.getStartStatus()) { // To "move" the game the first time that the player initialize the game (TAP TO START)
+      game.setStartStatus(true);
+    }
+
+    if (!game.isAlive()) {
+      if (mouseX > width/2 - 100 && mouseX < width/2 + 100) {
+        if (mouseY > height/2 - 50 && mouseY < height/2 + 50) {
+          score.setScore(0);
+          game.resume();
+          games.remove(i);
+          games.add(new Game(true));
+        }
+      }
     }
   }
 }
