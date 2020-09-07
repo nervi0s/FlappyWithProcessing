@@ -1,24 +1,24 @@
 class Obstacle {
 
-  float rectX;
-  float rect1Y;
-  float rect2Y;
+  private float rectX;
+  private float rect1Y;
+  private float rect2Y;
 
-  float rectWidth = 100;
-  float rect1Height;
-  float rect2Height;
+  private float rectWidth = 100;
+  private float rect1Height;
+  private float rect2Height;
 
-  float separation = 280;
+  private float separation = 280;
 
-  float speedX;
+  private float speedX;
 
-  boolean isUtil; // Used to avoid massive Obstacle objects creating (used in Game class)
-  boolean canBeRemoved;
-  boolean ballPassed; // Used together with checkBallPassed() method to increase score (used in Game class)
+  private boolean isUtil; // Used to avoid massive Obstacle objects creating (used in Game class)
+  private boolean canBeRemoved;
+  private boolean ballPassed; // Used together with checkBallPassed() method to increase score (used in Game class)
 
-  ArrayList<CollisionSensors> sensors;
+  private ArrayList<CollisionSensor> sensors;
 
-  Obstacle() {
+  public Obstacle() {
 
     rectX = width + rectWidth;
     rect1Y = 0;
@@ -34,26 +34,50 @@ class Obstacle {
     canBeRemoved = false;
     ballPassed  = false;
 
-    sensors = new ArrayList<CollisionSensors>();
+    sensors = new ArrayList<CollisionSensor>();
 
     for (float i = rect1Y; i < rect1Height; i += 10) { // For rectangle1 left side 
-      sensors.add(new CollisionSensors (rectX + 5, i, speedX));
+      sensors.add(new CollisionSensor(rectX + 5, i, speedX));
     }
 
     for (float i = rectX + 10; i < rectX + rectWidth; i += 10) { // For rectangle1 down side
-      sensors.add(new CollisionSensors (i, rect1Y + rect1Height - 5, speedX));
+      sensors.add(new CollisionSensor(i, rect1Y + rect1Height - 5, speedX));
     }
 
     for (float i = rect2Y; i < rect2Y + rect2Height; i += 10) { // For rectangle2 left side
-      sensors.add(new CollisionSensors (rectX + 5, i + 5, speedX));
+      sensors.add(new CollisionSensor(rectX + 5, i + 5, speedX));
     }
 
     for (float i = rectX + 10; i < rectX + rectWidth; i += 10) { // For rectangle2 top side
-      sensors.add(new CollisionSensors (i, rect2Y + 5, speedX));
+      sensors.add(new CollisionSensor(i, rect2Y + 5, speedX));
     }
   }
 
-  void display() {
+  public float getXPosition() {
+    return this.rectX;
+  }
+
+  public boolean getIsUtil() {
+    return this.isUtil;
+  }
+
+  public boolean getCanBeRemoved() {
+    return this.canBeRemoved;
+  }
+
+  public boolean getBallPassedStatus() {
+    return this.ballPassed;
+  }
+
+  public void setUtil(boolean isUtil) {
+    this.isUtil = isUtil;
+  }
+
+  public void setBallPassedStatus(boolean status) {
+    ballPassed = status;
+  }
+
+  public void display() {
     stroke(0);
     strokeWeight(1);
     fill(0, 204, 0);
@@ -61,7 +85,7 @@ class Obstacle {
     rect(rectX, rect2Y, rectWidth, rect2Height, 10, 10, 0, 0);
   }
 
-  void toLeft() {
+  public void toLeft() {
     rectX += speedX;
 
     if (rectX < 0 - rectWidth) {
@@ -69,8 +93,8 @@ class Obstacle {
     }
   }
 
-  Boolean checkBallPassed (Bird ball) {
-    if (rectX + rectWidth < ball.x - ball.diameter/2) {
+  public boolean checkBallPassed (Bird ball) {
+    if (rectX + rectWidth < ball.GetXPosition() - ball.GetDiameter()/2) {
       return true;
     } else {
       return false;
